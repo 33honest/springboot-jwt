@@ -4,7 +4,6 @@ import com.example.jwt.vo.JSONResult;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.lang.Assert;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,6 +39,7 @@ public class TokenAuthenticationService {
 
     /**
      * JWT生成方法
+     *
      * @param response
      * @param username
      */
@@ -69,6 +69,7 @@ public class TokenAuthenticationService {
 
     /**
      * JWT验证方法
+     *
      * @param request
      * @return
      */
@@ -87,6 +88,8 @@ public class TokenAuthenticationService {
 
             // 拿用户名
             String user = claims.getSubject();
+            String id = claims.getId();
+            System.out.println(String.format("ID值为:%s", id));
 
             // 得到 权限（角色）
             List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));

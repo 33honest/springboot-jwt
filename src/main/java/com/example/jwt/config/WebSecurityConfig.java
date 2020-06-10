@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("configure");
         auth.authenticationProvider(new CustomAuthenticationProvider());
     }
 
@@ -31,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("configure方法-设置http验证规则");
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()

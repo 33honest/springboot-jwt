@@ -27,11 +27,21 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         setAuthenticationManager(authManager);
     }
 
+    /**
+     * 登录时需要验证时调用
+     * @param req
+     * @param res
+     * @return
+     * @throws AuthenticationException
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
 
+        System.out.println("attemptAuthentication方法");
         /**
          * JSON反序列化成 AccountCredentials
          */
@@ -48,6 +58,15 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         );
     }
 
+    /**
+     * 验证成功后调用
+     * @param req
+     * @param res
+     * @param chain
+     * @param auth
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void successfulAuthentication(
             HttpServletRequest req,
@@ -57,7 +76,14 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         TokenAuthenticationService.addAuthentication(res, auth.getName());
     }
 
-
+    /**
+     * 验证失败时调用
+     * @param request
+     * @param response
+     * @param failed
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
 

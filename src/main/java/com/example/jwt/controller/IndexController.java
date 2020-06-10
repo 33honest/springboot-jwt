@@ -19,12 +19,12 @@ public class IndexController {
         return JSONResult.build("0000", "OK", "JWT");
     }
 
-    @RequestMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public String hello() {
         return JSONResult.build("0000", "OK", "Hello");
     }
 
-    @RequestMapping(value = "/world", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/world", produces = MediaType.APPLICATION_JSON_VALUE)
     public String world() {
 
         return com.example.jwt.utils.JSONResult.fillResultString(200, "", Arrays.asList("hello"));

@@ -16,6 +16,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        System.out.println("authenticate方法");
         /**
          * 获取认证的用户名 & 密码
          */
@@ -45,6 +46,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
+        System.out.println("supports方法");
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }
