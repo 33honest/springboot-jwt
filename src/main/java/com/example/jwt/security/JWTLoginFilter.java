@@ -24,6 +24,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     public JWTLoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
+        System.out.println("JWTLoginFilter");
         setAuthenticationManager(authManager);
     }
 
@@ -72,7 +73,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest req,
             HttpServletResponse res, FilterChain chain,
             Authentication auth) throws IOException, ServletException {
-
+        System.out.println("successfulAuthentication方法");
         TokenAuthenticationService.addAuthentication(res, auth.getName());
     }
 
@@ -86,7 +87,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
      */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-
+        System.out.println("unsuccessfulAuthentication 方法");
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getOutputStream().println(JSONResult.build("500", "Internal Server Error!!!", JSONObject.NULL));

@@ -37,6 +37,7 @@ public class TokenAuthenticationService {
      */
     static final String HEADER_STRING = "Authorization";
 
+
     /**
      * JWT生成方法
      *
@@ -95,9 +96,7 @@ public class TokenAuthenticationService {
             List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
 
             // 返回验证令牌
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null, authorities) :
-                    null;
+            return user != null ? new UsernamePasswordAuthenticationToken(user, null, authorities) : null;
         }
         return null;
     }

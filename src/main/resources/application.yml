@@ -1,0 +1,17 @@
+
+mybatis:
+  config-location: classpath:META-INF/mybatis-config.xml
+
+spring:
+  application:
+  datasource:
+    #driver: com.mysql.cj.jdbc.Driver
+    #driver: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.10.11.19:3306/wallet?autoReconnect=true&useUnicode=true&&serverTimezone=Hongkong&characterEncoding=utf-8
+    #url: jdbc:mysql://10.10.11.19:3306/wallet?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: admin
+    password: qijia123456
+    driver-class-name: com.mysql.jdbc.Driver
+logging:
+  level:
+    ch.qos.logback: off
