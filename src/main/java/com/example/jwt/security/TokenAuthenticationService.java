@@ -1,9 +1,7 @@
 package com.example.jwt.security;
 
 import com.example.jwt.vo.JSONResult;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +34,18 @@ public class TokenAuthenticationService {
      * 存放Token的Header Key
      */
     static final String HEADER_STRING = "Authorization";
+
+    public static String getPricipal(String token) {
+
+        String claims = Jwts.parser()
+                // 验签
+                .setSigningKey(SECRET)
+                // 去掉 Bearer
+                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                .getBody().getSubject();
+
+        return claims;
+    }
 
 
     /**
@@ -78,6 +88,8 @@ public class TokenAuthenticationService {
         // 从Header中拿到token
         String token = request.getHeader(HEADER_STRING);
 
+        System.out.println("getAuthentication方法----");
+
         if (token != null) {
             // 解析 Token
             Claims claims = Jwts.parser()
@@ -89,8 +101,6 @@ public class TokenAuthenticationService {
 
             // 拿用户名
             String user = claims.getSubject();
-            String id = claims.getId();
-            System.out.println(String.format("ID值为:%s", id));
 
             // 得到 权限（角色）
             List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));

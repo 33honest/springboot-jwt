@@ -32,7 +32,7 @@ public class CustomDaoAuthenticationProvider extends DaoAuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         System.out.println("authenticate 方法");
-        Authentication auth = null;
+
         /**
          * 获取认证的用户名 & 密码
          */

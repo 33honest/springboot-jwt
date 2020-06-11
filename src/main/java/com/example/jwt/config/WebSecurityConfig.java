@@ -24,8 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-
     @Bean
     public UserDetailsService userService() {
         return new UserService();
@@ -46,13 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER");
         */
 
-//        System.out.println("configure");
-//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-//        auth.authenticationProvider(new CustomAuthenticationProvider());
         CustomDaoAuthenticationProvider customDaoAuthenticationProvider = new CustomDaoAuthenticationProvider();
         customDaoAuthenticationProvider.setUserDetailsService(userService());
-        System.out.println(customDaoAuthenticationProvider);
-
         auth.authenticationProvider(customDaoAuthenticationProvider);
     }
 

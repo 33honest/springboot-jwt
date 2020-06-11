@@ -1,6 +1,7 @@
 package com.example.jwt.security;
 
 import com.example.jwt.model.AccountCredentials;
+import com.example.jwt.model.UserModel;
 import com.example.jwt.vo.JSONResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -30,6 +32,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     /**
      * 登录时需要验证时调用
+     *
      * @param req
      * @param res
      * @return
@@ -61,6 +64,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     /**
      * 验证成功后调用
+     *
      * @param req
      * @param res
      * @param chain
@@ -69,16 +73,21 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
      * @throws ServletException
      */
     @Override
-    protected void successfulAuthentication(
-            HttpServletRequest req,
-            HttpServletResponse res, FilterChain chain,
-            Authentication auth) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
         System.out.println("successfulAuthentication方法");
-        TokenAuthenticationService.addAuthentication(res, auth.getName());
+        System.out.println(auth.getPrincipal());
+        System.out.println(auth.getCredentials());
+        System.out.println(auth.getDetails());
+        System.out.println(auth.getAuthorities());
+        //username 或 对象主体UserDetails
+        UserModel user = (UserModel) auth.getPrincipal();
+
+        TokenAuthenticationService.addAuthentication(res, String.valueOf(user.getId()));
     }
 
     /**
      * 验证失败时调用
+     *
      * @param request
      * @param response
      * @param failed
